@@ -1,0 +1,100 @@
+/*Main colour gradient button used for each page*/
+.primary-button {
+    cursor: pointer;
+    border-radius: 2rem;
+    padding: 1rem;
+    text-align: center;
+    color: $secondary-text;
+    /*gradient color on button based on color scheme*/
+    background-image: linear-gradient(to top, $primary-colour 0%, $secondary-colour 100%);
+    @include card-boxshadow; 
+    position: relative;
+    z-index: 1;  
+    &--commander{           /*menu order ("commander") button*/   
+        align-self: center;
+        width: 205px;
+        margin-top: $section-seperation;
+    }     
+        &:hover{           
+            &::after {
+                opacity: 1;    /*set opacity to 1 so the layer is visible on hover*/
+            }
+        }
+        &::after{             /*every mention of primary button creates a duplicate layer*/  
+            content:"";                
+            position: absolute;         /*create white mask layer that lightens*/
+            top: 0;                     /* the button on hover*/
+            right: 0;
+            bottom: 0;
+            left: 0;
+            border-radius: 2rem;
+            background-color: rgba(255,255,255, 0.2);
+            opacity: 0;                                     /*layer hidden until hover*/
+            z-index: -1;                                    /*Z-index changes stacking order so background is behind*/
+            transition: opacity $transition-timing;    /*text but infront of original button background*/
+            @include card-hovershadow;
+        }        
+}
+
+/*selection buttons used in the fonctionnement section*/
+.select-button {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 1.2rem;
+    padding: 1.25rem;
+    width: 90%;
+    fill: $quaternary-color;    /*primary color of icons*/
+    @include card-boxshadow;
+    margin: $layout-gutter;
+    background: $section-background;
+    position: relative;
+    z-index: 1; 
+    &__number{                  /*style for numbers on fonctionnement buttons*/
+            background: $primary-colour;
+            color: $secondary-text;
+            border-radius: 50%;
+            width: 1.563rem;  /*25*/
+            height: 1.563rem; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            left: -1.563rem; 
+        }
+    &__icon{                  /* button icons size/position*/
+        @include icon-style;
+        margin-right: $icon-margin-right;
+        }           
+    &--colourmodify{                            /*icon & button color modification for dégustez button*/
+        background: pastel($primary-colour);    /* alter button background color based on main colour*/
+        fill: $primary-colour;
+        }
+        
+        &:hover{   
+            &::after {
+                opacity: 1;             /*set to 1 so the layer is visible*/
+            }
+        }
+        &::after{               /*::after places this "white mask" layer everywhere the select-button*/
+            content:"";         /* selector is mentioned in the html with new boxshadow value for hover*/
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            border-radius: 1.2rem;
+            background-color: rgba(255,255,255, 0.3);
+            opacity: 0;                                     /*layer hidden until hover*/
+            z-index: -1;                                    /*changes stacking order so background is behind*/
+            transition: opacity $transition-timing;    /*text but infront of original button background*/
+            @include card-hovershadow;
+        }
+    @media (min-width: $tablette-onwards){
+            width: 75%;
+            }                
+}
+
+
+

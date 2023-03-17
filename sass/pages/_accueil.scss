@@ -1,0 +1,111 @@
+.main{
+    flex-direction: column;
+}
+
+/*SELECT SECTION: choose a resto, menu then taste*/
+.select{
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: $section-seperation;
+    @media (min-width: $laptop-onwards){
+        flex-direction: row;
+    }   
+}
+
+/*RESTAURANTS SECTION*/
+/*Restaurant section heading*/
+.restaurants{
+    background-color: $section-background;
+    h2{
+        padding-top: $section-seperation/2;
+    }
+}
+/*Holds all restaurant cards*/
+.restaurant-container{
+    flex-direction: column;
+    gap: $layout-gutter;
+    padding-top: $section-seperation/2;
+    padding-bottom: $section-seperation*1.5;
+    @media (min-width: $tablette-onwards){
+        gap: 1.25rem;
+        flex-flow: row wrap;
+    }
+    @media (min-width: $laptop-onwards) {
+        gap: 0rem;
+        flex-wrap: nowrap;
+        }
+}
+
+/* RESTAURANT CARDS*/
+.restaurant-card{
+    flex: 1 1 255px;    /*short hand for flex grow, flex shrink, flex-basis*/
+    min-width: 190px;   /*after testing:190px & 255px help with the responsive design to avoid design breaks*/
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem; 
+    margin-left: $layout-gutter;
+    margin-right: $layout-gutter;
+    background-color: $card-color;
+    @include card-boxshadow;
+    position: relative;
+    z-index: 1;  
+    &__photo{               /*restaurant image styling*/
+    border-radius: 1rem 1rem 0rem 0rem;
+    height: 173px;
+    object-fit: cover;
+        &--nouveau{                 /*Green "Nouveau" remark that overlays photo*/
+            color: darken($tertiary-colour, 42%);
+            font-weight: bold;
+            background: $tertiary-colour;
+            padding: 8px;
+            border-radius: 3px;
+            position: absolute;
+            top: 13px;
+            right: 13px;
+            text-align: center;
+        }
+    }
+
+    &__description {        /*positioning of descriptions under cards*/
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: -5px;
+        padding-left: 8px;
+        p {
+            margin-top: -0.625rem;
+        }
+    }
+    &__heart{      /*heart image outline: size & position*/
+        @include icon-style;
+        margin-right: $icon-margin-right;
+    }
+    &__heartgraded{      /*gradient heart: image size & position*/
+        position: absolute;
+        @include icon-style;
+        margin-right: $icon-margin-right;
+        opacity: 0;
+        &:hover {       /*heart "fills" up on hover*/
+            opacity: 1;
+            transition: $transition-timing ease-in-out;
+        }
+    }
+    &:hover{   
+        &::after {
+            opacity: 1;             /*set to 1 so the layer is visible on hover*/
+        }
+    }                   /*every mention of primary button creates a duplicate layer*/ 
+    &::after{                       /*create boxshadow that appears around button*/
+        content:"";                 /*when the opacity of the layer is changed*/
+        position: absolute;         /*avoids a repaint of page (no reloading) so*/
+        top: 0;                     /*more efficient*/
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border-radius: 1rem;
+        opacity: 0;                                    
+        z-index: -1;                                   
+        transition: opacity $transition-timing;   
+        @include card-hovershadow;
+    }      
+}

@@ -1,0 +1,42 @@
+/*FOOTER used on all pages*/
+.footer {
+    display: flex;
+    flex-direction: column;
+    background: $footerbackground;
+    padding: $layout-gutter;
+    ul{
+        flex-direction: column;
+        justify-content: space-between;
+        list-style-type: none;  /*remove point*/
+        line-height: 1.625rem; /*26px*/
+        padding-left: 0rem;
+        @media (min-width: $tablette-onwards){
+            flex-direction: row;         
+            }
+        img{                /*smaller logo's sizing/positioning*/
+            width: 0.9rem;
+            height: 0.9rem;
+            margin-right: 0.625rem;
+            }
+        }
+
+    a{  /*footer Ohmyfood logo size*/
+        color: $secondary-text;
+        >img{
+            width: 6.25rem;
+        }
+        @media (min-width: $tablette-onwards){
+            margin-bottom: $layout-gutter;
+            align-self: center;
+            >img{
+                width: 10rem;
+            }
+        }
+    }
+        
+    address{        /*address balise in footer, reset font style to normal*/
+        font-style: normal;
+        }
+}
+
+

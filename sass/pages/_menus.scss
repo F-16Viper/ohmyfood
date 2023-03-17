@@ -1,0 +1,163 @@
+/*Restaurant Menu Section*/
+.menu{
+    display: flex;
+    flex-direction: column;
+    background-color: $section-background;
+    border-radius: 2.5rem 2.5rem 0rem 0rem;
+    margin-top: -2.5rem;
+    position: relative;
+    padding-bottom: $section-seperation*1.5;
+    h1{    
+        padding-left: 1.25rem;
+        font-family: 'Shrikhand';
+        }
+    &__header{
+        align-items: center;
+        justify-content: space-between;
+        }
+    &__heart{      /*heart image outline size & position*/
+        @include icon-style;
+        margin-right: $icon-margin-right;
+        }
+    &__heartgraded{      /*gradient heart image size & position*/
+        position: absolute;
+        @include icon-style;
+        margin-right: $icon-margin-right;
+         opacity: 0;
+        &:hover {       /*heart "fills" up on hover*/
+            opacity: 1;
+            transition: $transition-timing ease-in-out;
+            }
+        }
+    h2 {
+        text-transform: uppercase;
+        font-weight: normal;
+        font-size: 1rem;
+        padding-left: 1.2rem;
+        margin-top: 2rem;
+        margin-bottom: 1.25rem;
+        &::after{           /*place line under food headings*/
+            content:"";
+            display:block; /* so the element starts on a new line*/
+            border-bottom: 4px solid $tertiary-colour;
+            width: 2.5rem;
+            position: relative;
+            bottom: -3px;
+            }
+        }             
+}
+
+/*container added to help responsive design*/
+.food-container{
+    flex-direction: column;
+    @media (min-width: $laptop-onwards){
+        flex-direction: row;
+        justify-content: space-around;
+        /*flex: auto;*/
+    }
+}
+
+/*Food Menu cards*/
+.food{
+    display: flex;
+    flex-direction: column;
+    gap: $layout-gutter;
+        @media (min-width: $laptop-onwards){
+                display: block;
+                flex: 1;
+                overflow: hidden;
+                text-overflow: ellipsis;
+        }    
+    h3{
+        margin: 0px;
+        margin-bottom: 5px;
+        /*truncates the heading if needed*/
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    &__item{
+        border-radius: 1rem; 
+        padding: 0.9rem;
+        background-color: $card-color;
+        cursor: pointer;
+        @include card-boxshadow;
+        margin-left: $layout-gutter;
+        margin-right: $layout-gutter;
+        overflow: hidden;   /*hides check tick icon when not in view*/
+        opacity: 0;         /*start with cards invisible*/
+        animation: fadein $card-animation-time forwards ease-in-out;
+        /*loop dynamically generates each card's selector name/number & time delay*/
+            @for $i from 1 through $number-of-cards {
+            &--#{$i} {
+                animation-delay: $time-delay * $i;  /*card time delay based on it's position, ie, fraction of the total time x1, x2, x3...*/
+            }
+                @media (min-width: $laptop-onwards){
+                    margin-left: 5px;
+                    margin-right: 5px;
+                    margin-bottom: 1.25rem;
+                } 
+            }
+        &:hover .food__tickbox{         /*slide check tick icon into view from right on hover*/
+            transform: translateX(0rem);
+            &__logo{  
+            transform: rotate(360deg);  /*rotate check tick icon at the same time as slide in on hover*/
+            }
+        }      
+        h3{
+            width: 100%;
+            transition: width $transition-timing ease-in-out;
+        }
+        /*decrease the size of the food__item heading h3 container by the same amount the tick icon moves so text still truncates*/
+         &:hover  h3{
+            width: calc(100% - 4.375rem); /*70px*/
+            transition: width $transition-timing ease-in-out;
+            }
+        /*decrease the size of the description container by the same amount the tick icon moves to the left to give the illusion that it pushes the price to the left*/
+        &:hover .food__description{
+            width: calc(100% - 4.375rem); /*70px*/
+            transition: width $transition-timing ease-in-out;
+            }
+        }
+        &__description{
+        display: flex;
+        justify-content: space-between;  
+        width: 100%;  /*increase the description container width at the same rate the tick icon moves back to the right to give a smooth transition back to start*/
+        transition: width $transition-timing ease-in-out;
+            &--truncate{/*truncates the text if needed*/ 
+               /* flex: 1;*/
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;  /*replaces text with ellipsis (3 dots) when not enough space*/
+            }
+        }
+        
+        &__tickbox{             /*green check tick box container styling & postioning*/
+            width: 4.375rem; /*70px*/
+            height: 4.375rem;
+            background: $tertiary-colour;
+            border-radius: 0rem 1rem 1rem 0rem;
+            position: absolute;
+            top: 0rem;
+            right: 0rem;
+            transform: translateX(4.375rem);        /*animation transform start positions: off right hidden out of view*/
+            transition: transform $transition-timing ease-in-out;
+                &__logo{            /*white check tick on green backgound styling & postioning*/
+                    height: 2.813rem; /*45px*/
+                    width: 2.813rem;
+                    padding: 0.625rem;
+                    color: $secondary-text;
+                    background: $tertiary-colour;
+                    position: absolute;
+                    top: 0.75rem;
+                    bottom: 0rem;
+                    right: 0.75rem;
+                    border-radius: 50%;
+                    transform: rotate(-360deg);     /*animation transform start positions*/
+                    transition: transform $transition-timing ease-in-out;
+                }
+    }            
+}
+
+
+  

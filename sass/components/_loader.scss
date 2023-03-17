@@ -1,0 +1,39 @@
+/*Loading Page animation*/
+.loader {
+    flex-direction: column;
+    background: white;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    animation: fadeout $loadpage-duration $loadpage-delay linear both;
+}
+
+.loading {
+  margin-bottom: 3.125rem;
+  &__dot {
+  display: inline-block;
+  height: 15px;
+  width: 15px;
+  margin: 5px;
+  border-radius: 25px;
+  animation-name: bounce;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+    @for $i from 1 through 3 {
+      &:nth-child(#{$i}) {
+        background: nth($colors, $i);
+        animation-delay: $i * 0.2s;
+      }
+    }
+  }
+}
+  
+
+
+  
+
+
+
